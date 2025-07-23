@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Daily Needs - Home Essentials</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+      color: #333;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background-color: #ff7043;
+      color: white;
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-align: center;
+      padding: 20px 0;
+      user-select: none;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    }
+    main {
+      display: flex;
+      flex: 1;
+      max-width: 1100px;
+      margin: 30px auto;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      overflow: hidden;
+      width: 90%;
+      min-height: 680px;
+    }
+
+    /* Left column - Login + Login Info + Place Order */
+    .left-container {
+      flex: 1;
+      background: #fff;
+      padding: 40px 35px;
+      border-right: 3px solid #ff7043;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      overflow-y: auto;
+    }
+    .left-container h2 {
+      color: #ff7043;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    form.login-form label,
+    form.place-order-form label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #444;
+    }
+    form.login-form input[type="text"],
+    form.login-form input[type="password"],
+    form.place-order-form input[type="text"],
+    form.place-order-form input[type="tel"],
+    form.place-order-form textarea {
+      width: 100%;
+      padding: 12px 15px;
+      margin-bottom: 20px;
+      border: 1.5px solid #ff7043;
+      border-radius: 30px;
+      font-size: 1em;
+      outline: none;
+      transition: border-color 0.3s ease;
+      resize: vertical;
+    }
+    form.place-order-form textarea {
+      min-height: 80px;
+    }
+    form.login-form input[type="text"]:focus,
+    form.login-form input[type="password"]:focus,
+    form.place-order-form input[type="text"]:focus,
+    form.place-order-form input[type="tel"]:focus,
+    form.place-order-form textarea:focus {
+      border-color: #e64a19;
+      box-shadow: 0 0 6px #e64a19;
+    }
+    button {
+      background-color: #ff7043;
+      color: white;
+      border: none;
+      padding: 15px 0;
+      font-size: 1.2rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 700;
+      width: 100%;
+      box-shadow: 0 6px 15px rgba(255, 112, 67, 0.5);
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #e64a19;
+    }
+
+    /* Login info below form */
+    .login-info {
+      text-align: center;
+      color: #ff7043;
+      font-weight: 600;
+      font-size: 1rem;
+      margin-top: -10px;
+    }
+    .login-info a {
+      color: #ff7043;
+      text-decoration: none;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    .login-info a:hover {
+      color: #e64a19;
+      text-decoration: underline;
+    }
+
+    /* Right column - Info */
+    .info-container {
+      flex: 1;
+      background: white;
+      padding: 50px 40px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      color: #333;
+      overflow-y: auto;
+    }
+    .info-container h1 {
+      color: #ff7043;
+      font-weight: 900;
+      margin-bottom: 40px;
+      text-align: center;
+      letter-spacing: 3px;
+    }
+    .section {
+      margin-bottom: 35px;
+    }
+    .section h3 {
+      border-bottom: 3px solid #ff7043;
+      padding-bottom: 8px;
+      margin-bottom: 20px;
+      color: #ff7043;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+    }
+    .section ul {
+      list-style: none;
+      padding-left: 0;
+      color: #555;
+      font-size: 1.1rem;
+    }
+    .section ul li {
+      padding-left: 35px;
+      position: relative;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section ul li .icon {
+      font-size: 1.4rem;
+      color: #ff7043;
+      flex-shrink: 0;
+      width: 24px;
+      text-align: center;
+    }
+    .contact-details p {
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      color: #555;
+      padding-left: 35px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .contact-details p .icon {
+      font-size: 1.4rem;
+      color: #ff7043;
+      flex-shrink: 0;
+      width: 24px;
+      text-align: center;
+    }
+
+    /* Search bar */
+    .search-bar {
+      margin-bottom: 30px;
+      display: flex;
+      justify-content: center;
+    }
+    .search-bar input[type="text"] {
+      width: 85%;
+      padding: 12px 20px;
+      border: 2px solid #ff7043;
+      border-radius: 30px 0 0 30px;
+      font-size: 1.1rem;
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+    .search-bar button {
+      width: 15%;
+      border-radius: 0 30px 30px 0;
+      font-size: 1.1rem;
+      padding: 12px 0;
+      border: 2px solid #ff7043;
+      border-left: none;
+      cursor: pointer;
+      font-weight: 700;
+      background-color: #ff7043;
+      color: white;
+      transition: background-color 0.3s ease;
+    }
+    .search-bar input[type="text"]:focus {
+      border-color: #e64a19;
+      box-shadow: 0 0 6px #e64a19;
+    }
+    .search-bar button:hover {
+      background-color: #e64a19;
+    }
+
+    /* Order Summary preview */
+    .order-summary {
+      background: #fff3e0;
+      border: 2px solid #ff7043;
+      border-radius: 15px;
+      padding: 15px 20px;
+      margin-top: -10px;
+      font-size: 1rem;
+      color: #6d4c41;
+      max-height: 140px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      user-select: none;
+    }
+
+    footer {
+      text-align: center;
+      color: #555;
+      font-size: 0.9rem;
+      padding: 20px 0;
+      user-select: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 800px) {
+      main {
+        flex-direction: column;
+        min-height: auto;
+      }
+      .left-container {
+        border-right: none;
+        border-bottom: 3px solid #ff7043;
+        padding: 30px 25px;
+        gap: 30px;
+      }
+      .info-container {
+        padding: 30px 25px 40px 25px;
+      }
+      .search-bar input[type="text"] {
+        width: 75%;
+      }
+      .search-bar button {
+        width: 25%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>Daily Needs</header>
+
+  <main>
+    <!-- Left side: Login + login info + Place Order -->
+    <section class="left-container">
+
+      <!-- Login form -->
+      <div class="login">
+        <h2>Login to Your Account</h2>
+        <form class="login-form" onsubmit="handleLogin(event)">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" placeholder="Enter username" required autocomplete="username" />
+          
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="Enter password" required autocomplete="current-password" />
+          
+          <button type="submit">Login</button>
+        </form>
+        <div class="login-info">
+          <a href="#" onclick="alert('Password reset link sent to your email!')">Forgot password?</a>
+        </div>
+      </div>
+
+      <!-- Place Order form -->
+      <div class="place-order">
+        <h2>Place Your Order</h2>
+        <form class="place-order-form" oninput="updateSummary()" onsubmit="handlePlaceOrder(event)">
+          <label for="order-name">Full Name</label>
+          <input type="text" id="order-name" name="order-name" placeholder="Your full name" required />
+          
+          <label for="order-phone">Phone Number</label>
+          <input type="tel" id="order-phone" name="order-phone" placeholder="+1 234 567 890" required />
+          
+          <label for="order-address">Delivery Address</label>
+          <textarea id="order-address" name="order-address" placeholder="Enter your full delivery address" required></textarea>
+          
+          <label for="order-details">Order Details</label>
+          <textarea id="order-details" name="order-details" placeholder="List your items here..." required></textarea>
+          
+          <button type="submit">Submit Order</button>
+        </form>
+        <div id="order-summary" class="order-summary" style="display:none;"></div>
+      </div>
+    </section>
+
+    <!-- Right side: Search + Categories + Contact + Ordering Info -->
+    <section class="info-container">
+      <h1>Daily Needs</h1>
+
+      <!-- Search Bar -->
+      <div class="search-bar">
+        <input type="text" id="product-search" placeholder="Search products..." oninput="searchProducts()" />
+        <button onclick="searchProducts()">Search</button>
+      </div>
+
+      <div class="section categories">
+        <h3>Categories</h3>
+        <ul id="categories-list">
+          <li><span class="icon">🛒</span> Groceries</li>
+          <li><span class="icon">🥛</span> Dairy Products</li>
+          <li><span class="icon">🧴</span> Personal Care</li>
+          <li><span class="icon">🧹</span> Cleaning Supplies</li>
+          <li><span class="icon">🍿</span> Snacks & Beverages</li>
+          <li><span class="icon">💊</span> Medicines & Health</li>
+        </ul>
+      </div>
+      <div class="section contact-details">
+        <h3>Contact Details</h3>
+        <p><span class="icon">📧</span> Email: support@dailyneeds.com</p>
+        <p><span class="icon">📞</span> Phone: +1 234 567 890</p>
+        <p><span class="icon">🕘</span> Customer Service: Mon-Fri 9am - 6pm</p>
+        <p><span class="icon">🏢</span> Address: 123 Home Essentials Blvd, City, Country</p>
+      </div>
+
+      <div class="section ordering">
+        <h3>Ordering</h3>
+        <ul>
+          <li><span class="icon">📱</span> Place orders via our website or mobile app</li>
+          <li><span class="icon">⏰</span> Choose your preferred delivery slot</li>
+          <li><span class="icon">🔒</span> Secure payment options available</li>
+          <li><span class="icon">🚚</span> Track your orders in real-time</li>
+          <li><span class="icon">🔗</span> <a href="#" onclick="alert('Tracking feature coming soon!')">Track your order</a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer>© 2025 Daily Needs. All rights reserved.</footer>
+
+<script>
+  function handlePlaceOrder(event) {
+    event.preventDefault();
+    const name = event.target['order-name'].value.trim();
+    const phone = event.target['order-phone'].value.trim();
+    const address = event.target['order-address'].value.trim();
+    const details = event.target['order-details'].value.trim();
+    if(name && phone && address && details) {
+      alert(`Thank you, ${name}! Your order has been placed successfully.`);
+      event.target.reset();
+      document.getElementById('order-summary').style.display = 'none';
+    } else {
+      alert('Please fill out all order details.');
+    }
+  }
+
+  function handleLogin(event) {
+    event.preventDefault();
+    const username = event.target.username.value.trim();
+    if(username && event.target.password.value) {
+      alert(`Welcome back, ${username}!`);
+      event.target.reset();
+    } else {
+      alert('Please enter valid login credentials.');
+    }
+  }
+
+  function updateSummary() {
+    const name = document.getElementById('order-name').value.trim();
+    const phone = document.getElementById('order-phone').value.trim();
+    const address = document.getElementById('order-address').value.trim();
+    const details = document.getElementById('order-details').value.trim();
+    const summaryBox = document.getElementById('order-summary');
+
+    if(name || phone || address || details) {
+      summaryBox.style.display = 'block';
+      summaryBox.textContent =
+        `Order Summary:\n` +
+        (name ? `Name: ${name}\n` : '') +
+        (phone ? `Phone: ${phone}\n` : '') +
+        (address ? `Address: ${address}\n` : '') +
+        (details ? `Items:\n${details}` : '');
+    } else {
+      summaryBox.style.display = 'none';
+      summaryBox.textContent = '';
+    }
+  }
+
+  const categories = [
+    'Groceries',
+    'Dairy Products',
+    'Personal Care',
+    'Cleaning Supplies',
+    'Snacks & Beverages',
+    'Medicines & Health'
+  ];
+
+  function searchProducts() {
+    const query = document.getElementById('product-search').value.toLowerCase().trim();
+    const list = document.getElementById('categories-list');
+    list.innerHTML = '';
+
+    if(!query) {
+      // If search empty, show all categories
+      categories.forEach(cat => {
+        const li = document.createElement('li');
+        li.innerHTML = `<span class="icon">${getIcon(cat)}</span> ${cat}`;
+        list.appendChild(li);
+      });
+      return;
+    }
+
+    const filtered = categories.filter(cat => cat.toLowerCase().includes(query));
+    if(filtered.length === 0) {
+      const li = document.createElement('li');
+      li.textContent = 'No categories found';
+      li.style.color = '#e64a19';
+      list.appendChild(li);
+      return;
+    }
+
+    filtered.forEach(cat => {
+      const li = document.createElement('li');
+      li.innerHTML = `<span class="icon">${getIcon(cat)}</span> ${cat}`;
+      list.appendChild(li);
+    });
+  }
+
+  function getIcon(category) {
+    switch(category) {
+      case 'Groceries': return '🛒';
+      case 'Dairy Products': return '🥛';
+      case 'Personal Care': return '🧴';
+      case 'Cleaning Supplies': return '🧹';
+      case 'Snacks & Beverages': return '🍿';
+      case 'Medicines & Health': return '💊';
+      default: return '📦';
+    }
+  }
+</script>
+
+</body>
+</html>
+
+
